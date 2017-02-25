@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.0.2)
+
 function(write_gtest_main FILENAME CONTENTS)
   file(WRITE ${FILENAME} ${CONTENTS})
 endfunction(write_gtest_main)
