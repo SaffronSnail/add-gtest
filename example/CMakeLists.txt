@@ -29,7 +29,8 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
 )
 
 # Build the project
-include("../CMakeLists.txt")
+project(cmake-gtest-example VERSION 0.1)
+include("../add-gtest.cmake")
 include_directories(.)
 write_gtest_main("test.1.gtest.h" "test.2.gtest.h")
 add_executable(cmake-gtest-test-executable "${CMAKE_BINARY_DIR}/generated_code/main.cpp")
