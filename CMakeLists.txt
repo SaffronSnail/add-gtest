@@ -5,7 +5,6 @@ function(write_gtest_main)
     set(CONTENTS "${CONTENTS}#include \"${file}\"\n")
   endforeach()
   set(CONTENTS "${CONTENTS}\n\n#include \"gtest/gtest.h\"\n\nint main(int argc, char **argv)\n{\n  ::testing::InitGoogleTest(&argc, argv)\;\n  return RUN_ALL_TESTS()\;\n}\n")
-  file(MAKE_DIRECTORY "generated")
   file(WRITE ${CMAKE_BINARY_DIR}/generated_code/main.cpp ${CONTENTS})
 endfunction(write_gtest_main)
 
