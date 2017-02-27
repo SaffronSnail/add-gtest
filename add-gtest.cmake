@@ -40,3 +40,10 @@ function(write_gtest_main)
   file(WRITE ${CMAKE_BINARY_DIR}/generated_code/main.cpp ${CONTENTS})
 endfunction(write_gtest_main)
 
+function(add_gtest test_target)
+  download_gtest()
+  write_gtest_main(${ARGN})
+  add_executable(${test_target}-executable "${CMAKE_BINARY_DIR}/generated_code/main.cpp")
+  target_link_libraries(${test_target}-executable gtest_main)
+endfunction(add_gtest)
+
