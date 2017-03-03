@@ -1,8 +1,27 @@
 cmake_minimum_required(VERSION 3.0.2)
 
 function(download_gtest)
+  # this function requires a helper file, CMakeLists.txt.in
+  set(HELPER_FILENAME "${CMAKE_BINARY_DIR}/generated_code/CMakeLists.txt.in")
+  set(CONTENTS "cmake_minimum_required(VERSION 2.8.2)\n\n\
+  \
+project(googletest-donwload NONE)\n\n\
+  \
+  include(ExternalProject)\n\
+  ExternalProject_Add(googletest\n\
+  GIT_REPOSITORY     https://github.com/google/googletest.git\n\
+  GIT_TAG           master\n\
+  SOURCE_DIR        \"${CMAKE_BINARY_DIR}/googletest-src\"\n\
+  BINARY_DIR        \"${CMAKE_BINARY_DIR}/googletest-build\"\n\
+  CONFIGURE_COMMAND \"\"\n\
+  BUILD_COMMAND     \"\"\n\
+  INSTALL_COMMAND   \"\"\n\
+  TEST_COMMAND      \"\"\n\
+)\n\n")
+  file(WRITE ${HELPER_FILENAME} ${CONTENTS})
+
   # Download and unpack googletest
-  configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
+  configure_file(${HELPER_FILENAME} googletest-download/CMakeLists.txt)
   execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
                   RESULT_VARIABLE result
                   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/googletest-download
